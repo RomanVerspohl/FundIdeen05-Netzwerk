@@ -19,9 +19,10 @@ public class Client {
         FileOutputStream out = new FileOutputStream("output.txt");
         System.out.println("Receiving to file output.txt" );
 
-        int byteRead;
-        while((byteRead = input.read())!= -1) {
-            out.write(byteRead);
+        int numRead = 0;
+        byte[] buffer = new byte[3*512];
+        while((numRead = input.read(buffer))>= 0) {
+            out.write(buffer, 0, numRead);
         }
         out.flush(); out.close();
         input.close(); socket.close();
