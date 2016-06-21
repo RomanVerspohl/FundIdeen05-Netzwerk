@@ -39,11 +39,20 @@ public class Server {
         FileInputStream input = new FileInputStream(file);
         System.out.println("Transmitting." );
         System.out.println("For about " + (size/100) + " little dots.");
-        int numRead = 0;
-        byte[] buffer = new byte[3*512];
-        while( (numRead = input.read(buffer))>=0) {
-            out.write(buffer, 0, numRead);
+
+
+        // simple variant
+        int r = 0;
+        while( (r=input.read())!=-1) {
+            out.write(r);
         }
+
+        // // buffered variant
+        // int numRead = 0;
+        // byte[] buffer = new byte[5];
+        // while( (numRead = input.read(buffer))>=0) {
+        //     out.write(buffer, 0, numRead);
+        // }
         out.flush(); out.close();
         input.close(); serverSocket.close();
         System.out.println("Finished." );

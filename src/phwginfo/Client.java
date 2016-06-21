@@ -19,11 +19,18 @@ public class Client {
         FileOutputStream out = new FileOutputStream("output.txt");
         System.out.println("Receiving to file output.txt" );
 
-        int numRead = 0;
-        byte[] buffer = new byte[3*512];
-        while((numRead = input.read(buffer))>= 0) {
-            out.write(buffer, 0, numRead);
+        // simple variant
+        int r = 0;
+        while( (r=input.read())!=-1) {
+            out.write(r);
         }
+
+        // // buffered variant
+        // int numRead = 0;
+        // byte[] buffer = new byte[3*512];
+        // while((numRead = input.read(buffer))>= 0) {
+        //    out.write(buffer, 0, numRead);
+        // }
         out.flush(); out.close();
         input.close(); socket.close();
         System.out.println("Finished, please open file:" );
